@@ -7,6 +7,11 @@
 <style>
   /* ---- Fonts corporatives (ajusta les URL a la teva ruta real de GitHub) ---- */
   @font-face{
+    font-family:'Orbikular'; font-weight:400; font-style:normal; font-display:swap;
+    src:url('https://naciodigital.github.io/fonts/Orbikular-Regular.woff2') format('woff2'),
+        url('https://naciodigital.github.io/fonts/Orbikular-Regular.woff') format('woff');
+  }
+  @font-face{
     font-family:'Orbikular'; font-weight:800; font-style:normal; font-display:swap;
     src:url('https://naciodigital.github.io/fonts/Orbikular-ExtraBold.woff2') format('woff2'),
         url('https://naciodigital.github.io/fonts/Orbikular-ExtraBold.woff') format('woff');
@@ -33,10 +38,10 @@
     --land:#f1efe9; --land-stroke:#d3cfc4; --border:#b8b2a3;
     --ring:#c2410c; --accent:#c2410c;
     /* rols tipogràfics */
-    --font-display: 'Orbikular', 'Aeonik', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; /* titulars grans */
-    --font-title: 'Aeonik', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;                 /* títols d'apartat (Black) */
-    --font-num: 'Aeonik', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;                   /* xifres i eixos (Bold) */
-    --font-body: 'Aeonik', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;                  /* caixes de text (Regular) */
+    --font-display: 'Aeonik', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;               /* titulars grans (Aeonik Black) */
+    --font-title: 'Aeonik', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;                 /* títols d'apartat (Aeonik Black) */
+    --font-num: 'Aeonik', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;                   /* xifres i eixos (Aeonik Bold) */
+    --font-body: 'Orbikular', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;               /* caixes de text (Orbikular) */
     --mono: var(--font-num);
     --sans: var(--font-body);
   }
@@ -44,7 +49,7 @@
   html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;}
   .wrap{max-width:1060px;margin:0 auto;padding:26px 22px 60px;}
   header.top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;border-bottom:1px solid var(--hair);padding-bottom:16px;margin-bottom:8px;}
-  .title{font-family:var(--font-display);font-size:26px;letter-spacing:.04em;font-weight:800;color:var(--ink);margin:0 0 9px;line-height:1.15;}
+  .title{font-family:var(--font-display);font-size:26px;letter-spacing:.04em;font-weight:900;color:var(--ink);margin:0 0 9px;line-height:1.15;}
   .title b{color:var(--accent);}
   .sub{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--muted);margin:0;}
   .lede{font-size:17px;line-height:1.55;color:#3a4047;margin:16px 0 0;}
@@ -343,7 +348,7 @@ function drawCal(){
   calYearsNS.innerHTML=ys;
 
   // ---- columna d'hectàrees (fixa, dreta) ----
-  let has_s=`<text class="colhead" x="6" y="${mob?13:17}" text-anchor="start">hectàrees</text>`;
+  let has_s=`<text class="colhead" x="6" y="${mob?13:17}" text-anchor="start">ha</text>`;
   for(let yi=0;yi<NY;yi++){
     const y=Y0+yi, cy=T+yi*rh+rh/2, st=yearStats[y], has=st.days>0;
     has_s+=`<text class="ystat ${has?'o':'z'}" x="6" y="${(cy+3).toFixed(1)}" text-anchor="start">${has?nfHa(st.ha):'·'}</text>`;
@@ -610,7 +615,7 @@ function drawBars(){
   for(let t=1;t<nTicks;t++){const val=Math.round(niceN*t/nTicks), ty=T+plotH-yHa(niceHa*t/nTicks);
     s+=`<text class="ylab" x="${W-R+8}" y="${(ty+4).toFixed(1)}" text-anchor="start" font-size="${fs}" fill="var(--muted)">${val>=1000?val.toLocaleString("ca-ES"):val}</text>`;}
   s+=`<text class="colhead" x="${L-8}" y="${T-6}" text-anchor="end">ha</text>`;
-  s+=`<text class="colhead" x="${W-R+8}" y="${T-6}" text-anchor="start">nombre</text>`;
+  s+=`<text class="colhead" x="${W-R+8}" y="${T-6}" text-anchor="start">total</text>`;
   data.forEach((d,i)=>{
     const x=L+i*(bw+gap); let yC=T+plotH;
     if(d.a>0){const h=yHa(d.a); yC-=h; s+=`<rect class="bar-seg" data-y="${d.y}" x="${x.toFixed(1)}" y="${yC.toFixed(1)}" width="${bw}" height="${h.toFixed(1)}" fill="${C_A}"/>`;}
